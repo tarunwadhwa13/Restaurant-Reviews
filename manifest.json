@@ -1,0 +1,6 @@
+{
+    "short_name":"RestaurantReviews",
+    "name": "Restaurant Reviews app by Tarun",
+    "start_url": "/",
+    "display":"standalone"
+}
