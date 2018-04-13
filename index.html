@@ -24,12 +24,12 @@
       <div id="map" aria-label="locations" role="application"></div>
     </section>
     <section>
-      <div class="filter-options" role="option">
+      <div class="filter-options">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" aria-label="neighborhoods-list">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" aria-label="cuisines-list">
           <option value="all">All Cuisines</option>
         </select>
       </div>
@@ -41,8 +41,12 @@
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGsutFeNlZxh6kZlRwzyu0_ddIJ4UFvqM&libraries=places&callback=initMap"></script>
   <script>
-    if('serviceWorker' in navigator){
+    if('serviceWorker' in navigator && "SyncManager" in window){
       navigator.serviceWorker.register('/sw.js').then(function(){console.log("Registered the Service worker at " + new Date().toTimeString());})
+      
+      navigator.serviceWorker.ready.then(function(swRegistration) {
+           return swRegistration.sync.register('myFirstSync');
+      });
     }
   </script>
 

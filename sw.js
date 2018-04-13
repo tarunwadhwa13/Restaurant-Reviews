@@ -19,20 +19,8 @@ const assets = [
     "/js/custom.js",    
     "/js/dbhelper.js",
     "/js/restaurant_info.js",
+    "/data/restaurants.json"
 ];
-
-let urls = [];
-
-for (var i=1; i < 11; i++) {
-    urls.push("/restaurant.html?id=${i}");
-}
-    
-  
-self.addEventListener('install', function(event) {
-    event.waitUntil(
-    caches.open('v2').then(cache => cache.addAll(urls)).catch(error => console.error("Error Occured", error))
-    );
-});
 
 // Installing resources for offline use 
 self.addEventListener('install', e => {
@@ -46,10 +34,20 @@ self.addEventListener('install', e => {
 
 // Match in cache and fetch
 self.addEventListener('fetch', function (event) {
-    console.log(event.request.url);
+    if(event.request.url.includes('restaurant.html?id=')){
+        const strippedurl = event.request.url.split('?')[0];
+
+        event.respondWith(
+            catches.match(strippedurl).then(function(response){
+                return response || fetch(event.response);
+            })
+        );
+        return;
+    }
+
     event.respondWith(
-        caches.match(event.request).then(function(response) {
-        return response || fetch(event.request);
+        caches.match(event.request).then(function(response){
+            return response || fetch(event.request);
         })
-        );     
+    );
 });
