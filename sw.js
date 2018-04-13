@@ -16,6 +16,7 @@ const assets = [
     "/img/9.jpg",
     "/img/10.jpg",
     "/js/main.js",
+    "/js/custom.js",    
     "/js/dbhelper.js",
     "/js/restaurant_info.js",
 ];
@@ -41,3 +42,14 @@ self.addEventListener('fetch', function (event) {
         );     
 });
 
+self.addEventListener('activate', function (event) {
+    event.waitUntil(
+        caches.keys().then(function(keys){
+            return Promise.all(keys.map(function(key, i){
+                if(key !== CACHE_VERSION){
+                    return caches.delete(keys[i]);
+                }
+            }));
+        })
+    );
+});
