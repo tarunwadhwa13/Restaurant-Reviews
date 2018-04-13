@@ -21,6 +21,18 @@ const assets = [
     "/js/restaurant_info.js",
 ];
 
+let urls = [];
+
+for (var i=1; i < 11; i++) {
+    urls.push("/restaurant.html?id=${i}");
+}
+    
+  
+self.addEventListener('install', function(event) {
+    event.waitUntil(
+    caches.open('v2').then(cache => cache.addAll(urls)).catch(error => console.error("Error Occured", error))
+    );
+});
 
 // Installing resources for offline use 
 self.addEventListener('install', e => {
@@ -40,16 +52,4 @@ self.addEventListener('fetch', function (event) {
         return response || fetch(event.request);
         })
         );     
-});
-
-self.addEventListener('activate', function (event) {
-    event.waitUntil(
-        caches.keys().then(function(keys){
-            return Promise.all(keys.map(function(key, i){
-                if(key !== CACHE_VERSION){
-                    return caches.delete(keys[i]);
-                }
-            }));
-        })
-    );
 });

@@ -45,16 +45,18 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   min-height: 100%;
 }
 #footer {
-  max-width: 100%;
+  width: 100%;
   background-color: #444;
   color: #aaa;
+  padding: 25px;
   font-size: 8pt;
   letter-spacing: 1px;
-  padding: 25px;
   text-align: center;
   text-transform: uppercase;
   overflow-x: hidden;
+  z-index: 1000;
 }
+
 /* ====================== Navigation ====================== */
 nav {
   width: 100%;
@@ -204,11 +206,11 @@ nav h1 a {
 }
 .inside #map-container {
   background: blue none repeat scroll 0 0;
-  height: 87%;
+  height: 100%;
   position: fixed;
   right: 0;
-  top: 80px;
-  width: 50%;
+  width: 50%
+ 
 }
 .inside #map {
   background-color: #ccc;
@@ -217,7 +219,8 @@ nav h1 a {
 }
 .inside #footer {
   bottom: 0;
-  max-width: 100%;
+  position: relative;
+  min-width: 100%;
 }
 #restaurant-name {
   color: #f18200;
@@ -253,6 +256,8 @@ nav h1 a {
   border-top: 1px solid #fff;
   padding: 140px 40px 30px;
   width: 50%;
+  overflow-x: hidden;
+  
 }
 #reviews-container {
   padding: 30px 40px 80px;
@@ -399,6 +404,7 @@ nav h1 a {
   }
 
   .inside #footer {
+    position: relative;
       max-width: 100%;
   }
 }
